@@ -35,7 +35,7 @@ public class CameraControlls : MonoBehaviour
     private void OnDisable()
     {
         // Unsusbscribing to method to perform zoom changes if input actions are disabled
-        cameraZoomAction.action.performed += OnCameraZoom;
+        cameraZoomAction.action.performed -= OnCameraZoom;
         cameraMoveAction.action.Disable();
         cameraZoomAction.action.Disable();
     }
