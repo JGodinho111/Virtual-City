@@ -10,10 +10,6 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class DragNDropPlacer : MonoBehaviour
 {
-
-    [SerializeField]
-    private InputActionReference objectPlacementAction; // Left Mouse Button
-
     [SerializeField]
     private Camera mainCamera;
 
@@ -29,16 +25,6 @@ public class DragNDropPlacer : MonoBehaviour
 
     [SerializeField]
     private Canvas canvas; // to attach as the parent transform of the image preview
-
-    private void OnEnable()
-    {
-        objectPlacementAction.action.Enable();
-    }
-
-    private void OnDisable()
-    {
-        objectPlacementAction.action.Disable();
-    }
 
     void Update()
     {
