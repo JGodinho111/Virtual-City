@@ -42,7 +42,7 @@ public class ObjectStartAnimation : MonoBehaviour
         if(particleEffects != null)
         {
             currentParticleEffects = Instantiate(particleEffects, this.transform.position, Quaternion.identity);
-            Destroy(currentParticleEffects, animationTimer);
+            Destroy(currentParticleEffects, animationTimer * 0.8f);
         }
         else
         {
@@ -60,7 +60,7 @@ public class ObjectStartAnimation : MonoBehaviour
         Quaternion startRotation = transform.rotation; // for the rotation animations
 
         Vector3 startPosition = transform.position;
-        Vector3 maximumHeightPosition = startPosition + Vector3.up * 3f; // maximum vertical position
+        Vector3 maximumHeightPosition = startPosition + Vector3.up * 5f; // maximum vertical position
 
         transform.position = maximumHeightPosition;
 
