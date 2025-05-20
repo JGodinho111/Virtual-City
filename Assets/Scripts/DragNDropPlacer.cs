@@ -75,8 +75,11 @@ public class DragNDropPlacer : MonoBehaviour
 
                 if (currentGameObjectPrefab != null)
                 {
-                    // Change the position and rotation so it makes sure not to overlap with the city itself
-                    GameObject placedObject = Instantiate(currentGameObjectPrefab, new Vector3(hit.point.x, hit.point.y + 0.5f, hit.point.z), Quaternion.identity);
+                    // Randomizing slightly the coordinates so it isn't exactly where it is placed as requested (XZ Plane)
+                    Vector3 randomOffset = new Vector3(Random.Range(-0.05f, 0.05f), 0f, Random.Range(-0.05f, 0.05f));
+
+                    // Change the position so it makes sure not to overlap with the city itself
+                    GameObject placedObject = Instantiate(currentGameObjectPrefab, new Vector3(hit.point.x + randomOffset.x, hit.point.y + 0.5f, hit.point.z + randomOffset.z), hit.transform.rotation);
 
                     placedObject.transform.SetParent(hit.transform);
                 }
