@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6367137975352607304}
   - component: {fileID: 5285290578587560865}
   - component: {fileID: 8357584262278041134}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SupplyFoot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4479,7 +4479,7 @@ GameObject:
   - component: {fileID: 7971865943725702654}
   - component: {fileID: 6765095784861986086}
   - component: {fileID: 1801207335301812331}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PowerGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4955,7 +4955,7 @@ GameObject:
   - component: {fileID: 6400323362600148683}
   - component: {fileID: 4744229043199310981}
   - component: {fileID: 631510199631743227}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SupplyFoot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9420,7 +9420,7 @@ GameObject:
   - component: {fileID: 6899148269671889220}
   - component: {fileID: 4624029392321923730}
   - component: {fileID: 1896761489830768017}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SupplyFoot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13885,7 +13885,7 @@ GameObject:
   - component: {fileID: 8559981273491368920}
   - component: {fileID: 804824931290947465}
   - component: {fileID: 7553030438054841283}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SupplyFoot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -62,7 +62,8 @@ public class ObjectStartAnimation : MonoBehaviour
         Vector3 startPosition = transform.position;
         Vector3 maximumHeightPosition = startPosition + Vector3.up * 5f; // maximum vertical position
 
-        transform.position = maximumHeightPosition;
+        if(comingDown)
+            transform.position = maximumHeightPosition;
 
         // TODO - Edit. There is still a problem where, if I have more than one animation variable it won't end at beginning rotation automatically
         // since it will be in a different rotation
