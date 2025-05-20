@@ -931,7 +931,7 @@ GameObject:
   - component: {fileID: 1332132959}
   - component: {fileID: 1332132963}
   m_Layer: 5
-  m_Name: TestImageButtonDoor
+  m_Name: TestImageButtonCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -969,7 +969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d97463dab3bb04a37ad0e2e43a2b723a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectToPlacePrefab: {fileID: 2193019847771070222, guid: 6bba13cc337e84d6f90510156a001f11, type: 3}
+  gameObjectToPlacePrefab: {fileID: 8336853539926953158, guid: 8a99061002dc84abb9695ae08a1aad8c, type: 3}
   imageGameObjectToPlacePrefab: {fileID: 7501019823835020442, guid: dce823676cb1a44ecb9e5174c4221472, type: 3}
   dragNDropPlacer: {fileID: 1369951938}
 --- !u!114 &1332132960
@@ -1276,7 +1276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ffc51fe9eef430ca0dbab088095ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectPlacementAction: {fileID: 6507313699151744636, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   mainCamera: {fileID: 330585545}
   cityMask:
     serializedVersion: 2
@@ -1504,7 +1503,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Door
+  m_text: Cube
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

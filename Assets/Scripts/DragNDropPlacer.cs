@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 ///  Given a UI button press, place a desired game object into the city
 ///  TODO:
 ///  - Verifications to not allow placement on top of other city children
-///  - indexes for images to decide what gameobject to spawn, currently it is just one set type
 /// -  could be a singleton (if so change the name to manager)
 /// </summary>
 public class DragNDropPlacer : MonoBehaviour
@@ -76,7 +75,8 @@ public class DragNDropPlacer : MonoBehaviour
 
                 if (currentGameObjectPrefab != null)
                 {
-                    GameObject placedObject = Instantiate(currentGameObjectPrefab, hit.point + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                    // Change the position and rotation so it makes sure not to overlap with the city itself
+                    GameObject placedObject = Instantiate(currentGameObjectPrefab, new Vector3(hit.point.x, hit.point.y + 0.5f, hit.point.z), Quaternion.identity);
 
                     placedObject.transform.SetParent(hit.transform);
                 }
