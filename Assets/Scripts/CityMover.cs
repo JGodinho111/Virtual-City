@@ -25,6 +25,9 @@ public class CityMover : MonoBehaviour
     [SerializeField]
     private LayerMask cityItem;
 
+    [SerializeField]
+    private UIBlockDetector blockDetector; // serves to detect if pointer is over UI to then prevent raycasts
+
     private Vector2 lastMousePosition;
 
     private enum Movement {None, MoveXZ, RotateZ}
@@ -33,6 +36,8 @@ public class CityMover : MonoBehaviour
     private Vector3 xzMovementPointOffset; // this is used when moving the city on the XZ plane so it doesn't just snap to the pivot of the gameobject when moving
 
     private Rigidbody cityRigidbody;
+
+    
 
     private void Start()
     {
@@ -71,35 +76,38 @@ public class CityMover : MonoBehaviour
     // TODO - Fix raycast working when hitting UI
     private void CheckCityCollisionToMove()
     {
-        LayerMask allCity = cityMask | cityItem; // | uiLayer;
-
-        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-        if (Physics.Raycast(ray, out RaycastHit hit, allCity))
+        if(!blockDetector.IsOnUI())
         {
-            if (hit.collider.CompareTag("City") && (hit.transform == this.transform || hit.transform.gameObject.GetComponentInParent<Transform>().transform == hit.transform))
+            LayerMask allCity = cityMask | cityItem;
+
+            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            if (Physics.Raycast(ray, out RaycastHit hit, allCity))
             {
-                lastMousePosition = Mouse.current.position.ReadValue();
-                if(currentMode == Movement.RotateZ)
+                if (hit.collider.CompareTag("City") && (hit.transform == this.transform || hit.transform.gameObject.GetComponentInParent<Transform>().transform == hit.transform))
                 {
-                    StartCoroutine(RotateZAxis());
-                }
-                else if(currentMode == Movement.MoveXZ)
-                {
-                    // Update grabbing point to be the exact coordinates of the place it was grabbed and not the gameobject pivot
-                    xzMovementPointOffset = transform.InverseTransformPoint(hit.point);
-                    StartCoroutine(MoveXZPlane());
+                    lastMousePosition = Mouse.current.position.ReadValue();
+                    if (currentMode == Movement.RotateZ)
+                    {
+                        StartCoroutine(RotateZAxis());
+                    }
+                    else if (currentMode == Movement.MoveXZ)
+                    {
+                        // Update grabbing point to be the exact coordinates of the place it was grabbed and not the gameobject pivot
+                        xzMovementPointOffset = transform.InverseTransformPoint(hit.point);
+                        StartCoroutine(MoveXZPlane());
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Mode not set to any movement");
+                        return;
+                    }
                 }
                 else
                 {
-                    Debug.LogWarning("Mode not set to any movement");
+                    Debug.Log("Raycast collided outside all city objects");
+                    // Ignore
                     return;
                 }
-            }
-            else
-            {
-                Debug.Log("Raycast collided outside all city objects");
-                // Ignore
-                return;
             }
         }
     }
