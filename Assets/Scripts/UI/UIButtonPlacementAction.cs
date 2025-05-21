@@ -16,14 +16,19 @@ public class UIButtonPlacementAction : MonoBehaviour, IPointerDownHandler
     [SerializeField]
     private DragNDropPlacer dragNDropPlacer;
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        // TODO - Swoosh sound as if I were "grabbing the object from nothing"
-        dragNDropPlacer.StartGameObjectPlacement(gameObjectToPlacePrefab, imageGameObjectToPlacePrefab);
-    }
+    private SoundManager soundManager;
 
     void Start()
     {
-        // TODO: If I change it to an instance get it here rather than as a SerializeField
+        soundManager = SoundManager.Instance;
     }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        // TODO - Swoosh sound as if I were "grabbing the object from nothing"
+        soundManager.CheckPlaySound("ButtonPress");
+        dragNDropPlacer.StartGameObjectPlacement(gameObjectToPlacePrefab, imageGameObjectToPlacePrefab);
+    }
+
+    
 }

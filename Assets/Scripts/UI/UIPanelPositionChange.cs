@@ -10,7 +10,9 @@ public class UIPanelPositionChange : MonoBehaviour, IPointerEnterHandler, IPoint
     private Vector2 panelStartPosition;
     private Vector2 hoverUp;
 
-    private Vector2 panelSize; 
+    private Vector2 panelSize;
+
+    private SoundManager soundManager;
 
     void Awake()
     {
@@ -18,6 +20,11 @@ public class UIPanelPositionChange : MonoBehaviour, IPointerEnterHandler, IPoint
         panelStartPosition = panelRectTransform.anchoredPosition;
         hoverUp = new Vector3(0f, 11f);
         panelSize = panelRectTransform.sizeDelta;
+    }
+
+    private void Start()
+    {
+        soundManager = SoundManager.Instance;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -29,6 +36,7 @@ public class UIPanelPositionChange : MonoBehaviour, IPointerEnterHandler, IPoint
         Vector2 newSize = panelSize + new Vector2(0f, 30f);
         panelRectTransform.sizeDelta = newSize;
         // TODO - Entering Selectable Area Sound
+        soundManager.CheckPlaySound("PanelEnter");
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -36,5 +44,6 @@ public class UIPanelPositionChange : MonoBehaviour, IPointerEnterHandler, IPoint
         panelRectTransform.anchoredPosition = panelStartPosition;
         panelRectTransform.sizeDelta = panelSize;
         // TODO - Leaving Selectable Area Sound
+        soundManager.CheckPlaySound("PanelExit");
     }
 }

@@ -27,8 +27,8 @@ public class CityMover : MonoBehaviour
 
     private Vector2 lastMousePosition;
 
-    private enum MovementMode {None, MoveXZ, RotateZ}
-    private MovementMode currentMode = MovementMode.None;
+    private enum Movement {None, MoveXZ, RotateZ}
+    private Movement currentMode = Movement.None;
 
     private Vector3 xzMovementPointOffset; // this is used when moving the city on the XZ plane so it doesn't just snap to the pivot of the gameobject when moving
 
@@ -45,23 +45,23 @@ public class CityMover : MonoBehaviour
 
     void Update()
     {
-        if (currentMode == MovementMode.None && Mouse.current.leftButton.wasPressedThisFrame)
+        if (currentMode == Movement.None && Mouse.current.leftButton.wasPressedThisFrame)
         {
-            currentMode = MovementMode.MoveXZ;
+            currentMode = Movement.MoveXZ;
             Debug.Log("Checking to move city on XZ plane");
             CheckCityCollisionToMove(); // check if hit the city
         }
 
-        if (currentMode == MovementMode.None && Mouse.current.rightButton.wasPressedThisFrame)
+        if (currentMode == Movement.None && Mouse.current.rightButton.wasPressedThisFrame)
         {
-            currentMode = MovementMode.RotateZ;
+            currentMode = Movement.RotateZ;
             Debug.Log("Checking to tilt city on Z axis");
             CheckCityCollisionToMove(); // check if hit the city
         }
 
-        if (currentMode != MovementMode.None && (Mouse.current.leftButton.wasReleasedThisFrame || Mouse.current.rightButton.wasReleasedThisFrame))
+        if (currentMode != Movement.None && (Mouse.current.leftButton.wasReleasedThisFrame || Mouse.current.rightButton.wasReleasedThisFrame))
         {
-            currentMode = MovementMode.None;
+            currentMode = Movement.None;
             //StopMovingCity();
             Debug.Log("Not checking City Movement");
         }
@@ -79,11 +79,11 @@ public class CityMover : MonoBehaviour
             if (hit.collider.CompareTag("City") && (hit.transform == this.transform || hit.transform.gameObject.GetComponentInParent<Transform>().transform == hit.transform))
             {
                 lastMousePosition = Mouse.current.position.ReadValue();
-                if(currentMode == MovementMode.RotateZ)
+                if(currentMode == Movement.RotateZ)
                 {
                     StartCoroutine(RotateZAxis());
                 }
-                else if(currentMode == MovementMode.MoveXZ)
+                else if(currentMode == Movement.MoveXZ)
                 {
                     // Update grabbing point to be the exact coordinates of the place it was grabbed and not the gameobject pivot
                     xzMovementPointOffset = transform.InverseTransformPoint(hit.point);
@@ -109,7 +109,7 @@ public class CityMover : MonoBehaviour
     // and moves the rigidbody by multiplying the current rotation with the new one
     private IEnumerator RotateZAxis()
     {
-        while (Mouse.current.rightButton.isPressed && currentMode == MovementMode.RotateZ)
+        while (Mouse.current.rightButton.isPressed && currentMode == Movement.RotateZ)
         {
             Vector2 currentMousePosition = Mouse.current.position.ReadValue();
             float delta = currentMousePosition.x - lastMousePosition.x;
@@ -132,7 +132,7 @@ public class CityMover : MonoBehaviour
     {
         Plane movePlane = new Plane(Vector3.up, transform.position); // Vector3.zero
 
-        while (Mouse.current.leftButton.isPressed && currentMode == MovementMode.MoveXZ)
+        while (Mouse.current.leftButton.isPressed && currentMode == Movement.MoveXZ)
         {
             Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 

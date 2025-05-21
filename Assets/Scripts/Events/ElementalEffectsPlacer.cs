@@ -24,8 +24,12 @@ public class ElementalEffectsPlacer : MonoBehaviour
     [SerializeField]
     private GameObject snowEffectPrefab;
 
+    private SoundManager soundManager;
+
     void Start()
     {
+        soundManager = SoundManager.Instance;
+
         timer = timerTime;
     }
 
@@ -96,6 +100,8 @@ public class ElementalEffectsPlacer : MonoBehaviour
         if (allCityObjects != null)
         {
             // TODO "Wuhhhooop" sound effect - assume it's alien objects instead of trash
+            soundManager.CheckPlaySound("Trash");
+
             foreach (var cityPart in allCityObjects)
             {
                 if (trashPrefab != null)
@@ -123,6 +129,7 @@ public class ElementalEffectsPlacer : MonoBehaviour
         if(city != null)
         {
             // TODO "Snow Thunder" sound effect
+            soundManager.CheckPlaySound("SnowThunder");
 
             Vector3 cityPosition = city[0].transform.position;
             Vector3 citySize = city[0].GetComponent<Renderer>().bounds.size;

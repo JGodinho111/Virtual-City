@@ -31,6 +31,13 @@ public class DragNDropPlacer : MonoBehaviour
     [SerializeField]
     private Canvas canvas; // to attach as the parent transform of the image preview
 
+    private SoundManager soundManager;
+
+    private void Start()
+    {
+        soundManager = SoundManager.Instance;
+    }
+
     void Update()
     {
         if(buttonToPlacePressed && Mouse.current.leftButton.wasReleasedThisFrame)
@@ -97,6 +104,7 @@ public class DragNDropPlacer : MonoBehaviour
                         {
                             Debug.LogWarning("Gameobject hit another cityItem, and so is removed!");
                             // TODO - Fail to deploy sound
+                            soundManager.CheckPlaySound("SpawnFailure");
                             Destroy(placedObject);
                             return;
                         }
@@ -104,17 +112,20 @@ public class DragNDropPlacer : MonoBehaviour
 
                     Debug.Log("Gameobject hit another, but it is the city so it remains in the scene.");
                     // TODO - Successful deploy sound
+                    soundManager.CheckPlaySound("SpawnSuccess");
                 }
                 else
                 {
                     Debug.LogError("No currentGameObjectPrefab exists to instantiate!");
                     // TODO - Fail to deploy sound
+                    soundManager.CheckPlaySound("SpawnFailure");
                 }
             }
             else
             {
                 Debug.LogWarning("Raycast collided outside the buildable city");
                 // TODO - Fail to deploy sound
+                soundManager.CheckPlaySound("SpawnFailure");
             }
         }
     }
