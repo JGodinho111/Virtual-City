@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 /// <summary>
 ///  Given a UI button press, place a desired game object into the city
@@ -8,7 +10,6 @@ using UnityEngine.InputSystem;
 ///  and add to its action properties the desired MetaQuest button binding
 ///  TODO:
 ///  - Verifications to not allow placement on top of other city children (not fully working)
-/// -  could be a singleton (if so change the name to manager)
 /// </summary>
 public class DragNDropPlacer : MonoBehaviour
 {
@@ -69,11 +70,34 @@ public class DragNDropPlacer : MonoBehaviour
         buttonToPlacePressed = false;
         if (currentGameobjectImage != null)
         {
-            Destroy(existingSceneImage);
+            StartCoroutine(FadeAwayImageUI());
         }
         else
         {
             Debug.LogError("No currentGameobjectImage exists to destroy!");
+        }
+    }
+
+    // Fades away the UI icon and then destroys it
+    private IEnumerator FadeAwayImageUI()
+    {
+        Image imageToFade = existingSceneImage.GetComponent<Image>();
+        if(imageToFade != null)
+        {
+            Color color = imageToFade.color;
+            float durationToFade = 0.2f;
+            float timeElapsed = 0f;
+
+            while (timeElapsed < durationToFade)
+            {
+                float alphaValue = Mathf.Lerp(1f, 0f, timeElapsed / durationToFade);
+                imageToFade.color = new Color(color.r, color.g, color.b, alphaValue);
+                timeElapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            imageToFade.color = new Color(color.r, color.g, color.b, 0f);
+            Destroy(existingSceneImage);
         }
     }
 
