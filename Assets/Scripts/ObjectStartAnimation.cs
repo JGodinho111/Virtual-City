@@ -2,6 +2,11 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Class that handles individual object animations on Start by instantiating a particle effect
+/// and doing an animation based on three parameters
+/// - These parameters are set up by the classes that extend this class overriding the SetAnimationParameters() method
+/// </summary>
 public class ObjectStartAnimation : MonoBehaviour
 {
     [SerializeField]
@@ -11,7 +16,7 @@ public class ObjectStartAnimation : MonoBehaviour
 
     private float animationSpeed = 360f; // in degrees per second
 
-    private float animationTimer = 1f; // 1 second animation
+    private float animationTimer = 0.5f; // 1 second animation
 
     // Animation Values - updated in the class that extends this one in their SetAnimationParameters() override method
     protected bool rotatingSideways = false;

@@ -4481,7 +4481,7 @@ GameObject:
   - component: {fileID: 1801207335301812331}
   m_Layer: 7
   m_Name: PowerGenerator
-  m_TagString: Untagged
+  m_TagString: City
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

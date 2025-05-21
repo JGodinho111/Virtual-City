@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - City
+  - UI
   layers:
   - Default
   - TransparentFX

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 ///  with the desired ActionInputReference (in this case pertaining to the mouse left button)
 ///  and add to its action properties the desired MetaQuest button binding
 ///  TODO:
-///  - Verifications to not allow placement on top of other city children
+///  - Verifications to not allow placement on top of other city children (not fully working)
 /// -  could be a singleton (if so change the name to manager)
 /// </summary>
 public class DragNDropPlacer : MonoBehaviour
@@ -85,6 +85,7 @@ public class DragNDropPlacer : MonoBehaviour
 
                     // Change the position so it makes sure not to overlap with the city itself
                     GameObject placedObject = Instantiate(currentGameObjectPrefab, new Vector3(hit.point.x + randomOffset.x, hit.point.y + 0.5f, hit.point.z + randomOffset.z), hit.transform.rotation);
+                    placedObject.transform.SetParent(hit.transform);
 
                     // Logic to make sure it doesn't collide with other gameobjects such as roads & other buildings
                     Collider[] placedObjectColliderHits = Physics.OverlapBox(placedObject.transform.position, placedObject.GetComponent<Collider>().bounds.size / 2, placedObject.transform.rotation, cityItem);
@@ -100,7 +101,6 @@ public class DragNDropPlacer : MonoBehaviour
                         }
                     }
 
-                    placedObject.transform.SetParent(hit.transform);
                     Debug.Log("Gameobject hit another, but it is the city so it remains in the scene.");
                     // TODO - Successful deploy sound
                 }
