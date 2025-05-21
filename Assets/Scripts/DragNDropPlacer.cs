@@ -87,6 +87,7 @@ public class DragNDropPlacer : MonoBehaviour
                     GameObject placedObject = Instantiate(currentGameObjectPrefab, new Vector3(hit.point.x + randomOffset.x, hit.point.y + 0.5f, hit.point.z + randomOffset.z), hit.transform.rotation);
                     placedObject.transform.SetParent(hit.transform);
 
+                    // TODO: Change to use simpler box colliders, will be more accurate overall
                     // Logic to make sure it doesn't collide with other gameobjects such as roads & other buildings
                     Collider[] placedObjectColliderHits = Physics.OverlapBox(placedObject.transform.position, placedObject.GetComponent<Collider>().bounds.size / 2, placedObject.transform.rotation, cityItem);
 

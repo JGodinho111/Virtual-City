@@ -1,14 +1,19 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
 /// Class that detects player input (left or right mouse button)
-/// and is attached to the city gameobject (TODO: Maybe change to be separate)
+/// and is attached to the city gameobject (this way we can have as many cities as we want)
 /// If input is touching the gameobject it moves it either around the XZ plane (left click)
 /// or tilts it around the Z axis (right click)
+/// - Updated to now use physics-based movement
+/// 
+/// NOTE: If it were an XR Scene, simply replace the two Mouse.current references
+/// with the desired ActionInputReference (in this case pertaining to the mouse left button and another to the right mouse button)
+/// and add to its action properties the desired MetaQuest button binding
 /// </summary>
+[RequireComponent(typeof(Rigidbody))]
 public class CityMover : MonoBehaviour
 {
     [SerializeField]
@@ -26,6 +31,17 @@ public class CityMover : MonoBehaviour
     private MovementMode currentMode = MovementMode.None;
 
     private Vector3 xzMovementPointOffset; // this is used when moving the city on the XZ plane so it doesn't just snap to the pivot of the gameobject when moving
+
+    private Rigidbody cityRigidbody;
+
+    private void Start()
+    {
+        cityRigidbody = this.GetComponent<Rigidbody>();
+
+        // Not needed since already set up in the inspector, just to explain it
+        cityRigidbody.useGravity = false; // Not using it so the city doesn't just fall
+        cityRigidbody.isKinematic = true; // So rigidbody is controlled via the script
+    }
 
     void Update()
     {
@@ -89,6 +105,8 @@ public class CityMover : MonoBehaviour
     }
 
     // Moves gameobject around Z axis with its pivot as the axis origin
+    // Gets the angle between mouse positions on the Z axis
+    // and moves the rigidbody by multiplying the current rotation with the new one
     private IEnumerator RotateZAxis()
     {
         while (Mouse.current.rightButton.isPressed && currentMode == MovementMode.RotateZ)
@@ -96,7 +114,10 @@ public class CityMover : MonoBehaviour
             Vector2 currentMousePosition = Mouse.current.position.ReadValue();
             float delta = currentMousePosition.x - lastMousePosition.x;
 
-            this.transform.Rotate(Vector3.forward, -delta * 0.2f, Space.World);
+            //this.transform.Rotate(Vector3.forward, -delta * 0.2f, Space.World);
+            Quaternion rotation = Quaternion.AngleAxis(-delta * 0.5f, Vector3.forward);
+            cityRigidbody.MoveRotation(cityRigidbody.rotation * rotation);
+
             lastMousePosition = currentMousePosition;
 
             yield return null;
@@ -104,6 +125,9 @@ public class CityMover : MonoBehaviour
     }
 
     // Moves gameobject around XZ plane with its point being the mouse click point and not the pivot point
+    // Raycasts constanty to get the exact position to change to,
+    // modifes it with the xzMovementPointOffset so it is applied directly on where the player pressed
+    // and then sets the rigid body to move to a new position by interpolating it within 0.3 seconds (to appear to be gliding)
     private IEnumerator MoveXZPlane()
     {
         Plane movePlane = new Plane(Vector3.up, transform.position); // Vector3.zero
@@ -116,10 +140,11 @@ public class CityMover : MonoBehaviour
             {
                 Vector3 grabHitPoint = ray.GetPoint(enter);
                 // TODO - FIX (offset is pulling it down a bit)
-                transform.position = grabHitPoint - xzMovementPointOffset;
+                //transform.position = grabHitPoint - xzMovementPointOffset;
+                Vector3 newPosition = Vector3.Lerp(cityRigidbody.position, grabHitPoint - xzMovementPointOffset, 0.3f);
+                cityRigidbody.MovePosition(newPosition);
             }
             yield return null;
         }
-
     }
 }
