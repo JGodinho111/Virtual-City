@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3479855600309049963}
   - component: {fileID: 497299730898371486}
   - component: {fileID: 1470541128951267463}
+  - component: {fileID: 7241417673995520445}
   m_Layer: 7
   m_Name: Pipe
   m_TagString: City
@@ -2108,3 +2109,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleEffects: {fileID: 4416822498906840902, guid: ee9f1407a6cd54b16a8cfd5037a6af15, type: 3}
+--- !u!136 &7241417673995520445
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2938598549541440802}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

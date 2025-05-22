@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 822533620042947041}
   - component: {fileID: 4531901458743714308}
   - component: {fileID: 3255357322306494177}
+  - component: {fileID: 4376042780205300964}
   m_Layer: 7
   m_Name: Cube
   m_TagString: City
@@ -366,3 +367,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleEffects: {fileID: 4416822498906840902, guid: ee9f1407a6cd54b16a8cfd5037a6af15, type: 3}
+--- !u!65 &4376042780205300964
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8336853539926953158}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

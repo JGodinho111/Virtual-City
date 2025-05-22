@@ -131,7 +131,8 @@ public class ElementalEffectsPlacer : MonoBehaviour
             // TODO "Snow Thunder" sound effect
             soundManager.CheckPlaySound("SnowThunder");
 
-            Vector3 cityPosition = city[0].transform.position;
+            // TODO - Seems to always be spawning at original position, even if I update the city position
+            Vector3 cityPosition = city[0].GetComponent<Rigidbody>().position; // changed it from transform to rigidbody, but still doesn't seem correct
             Vector3 citySize = city[0].GetComponent<Renderer>().bounds.size;
 
             // Particle Effect

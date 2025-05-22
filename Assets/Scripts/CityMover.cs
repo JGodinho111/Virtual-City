@@ -72,8 +72,7 @@ public class CityMover : MonoBehaviour
         }
     }
 
-    // Checks to see if it hit the city, if so, then goes into a coroutine to move it around the XZ plane or tilt around the Z axis
-    // TODO - Fix raycast working when hitting UI
+    // Checks to see if it is not hitting UI, the check if it hit the city, if so, then goes into a coroutine to move it around the XZ plane or tilt around the Z axis
     private void CheckCityCollisionToMove()
     {
         if(!blockDetector.IsOnUI())
@@ -93,7 +92,10 @@ public class CityMover : MonoBehaviour
                     else if (currentMode == Movement.MoveXZ)
                     {
                         // Update grabbing point to be the exact coordinates of the place it was grabbed and not the gameobject pivot
-                        xzMovementPointOffset = transform.InverseTransformPoint(hit.point);
+                        Vector3 objectCameraHit = transform.InverseTransformPoint(hit.point);
+
+                        // Note: Patch fix to stop gameobject from going down the Y axis, but it still moves slightly on x and z axis, but it is dismissable
+                        xzMovementPointOffset = new Vector3(objectCameraHit.x, 0f, objectCameraHit.z);
                         StartCoroutine(MoveXZPlane());
                     }
                     else
@@ -122,7 +124,6 @@ public class CityMover : MonoBehaviour
             Vector2 currentMousePosition = Mouse.current.position.ReadValue();
             float delta = currentMousePosition.x - lastMousePosition.x;
 
-            //this.transform.Rotate(Vector3.forward, -delta * 0.2f, Space.World);
             Quaternion rotation = Quaternion.AngleAxis(-delta * 0.5f, Vector3.forward);
             cityRigidbody.MoveRotation(cityRigidbody.rotation * rotation);
 
@@ -138,7 +139,7 @@ public class CityMover : MonoBehaviour
     // and then sets the rigid body to move to a new position by interpolating it within 0.3 seconds (to appear to be gliding)
     private IEnumerator MoveXZPlane()
     {
-        Plane movePlane = new Plane(Vector3.up, transform.position); // Vector3.zero
+        Plane movePlane = new Plane(Vector3.up, cityRigidbody.transform.position);
 
         while (Mouse.current.leftButton.isPressed && currentMode == Movement.MoveXZ)
         {
@@ -147,8 +148,6 @@ public class CityMover : MonoBehaviour
             if(movePlane.Raycast(ray, out float enter))
             {
                 Vector3 grabHitPoint = ray.GetPoint(enter);
-                // TODO - FIX (offset is pulling it down a bit)
-                //transform.position = grabHitPoint - xzMovementPointOffset;
                 Vector3 newPosition = Vector3.Lerp(cityRigidbody.position, grabHitPoint - xzMovementPointOffset, 0.3f);
                 cityRigidbody.MovePosition(newPosition);
             }

@@ -8,8 +8,6 @@ using UnityEngine.UI;
 ///  NOTE: If it were an XR Scene, simply replace the two Mouse.current references
 ///  with the desired ActionInputReference (in this case pertaining to the mouse left button)
 ///  and add to its action properties the desired MetaQuest button binding
-///  TODO:
-///  - Verifications to not allow placement on top of other city children (not fully working)
 /// </summary>
 public class DragNDropPlacer : MonoBehaviour
 {
@@ -112,13 +110,15 @@ public class DragNDropPlacer : MonoBehaviour
                 if (currentGameObjectPrefab != null)
                 {
                     // Randomizing slightly the coordinates so it isn't exactly where it is placed as requested (XZ Plane)
-                    Vector3 randomOffset = new Vector3(Random.Range(-0.01f, 0.01f), 0f, Random.Range(-0.01f, 0.01f));
+                    // NOTE: I simply do not like the feel of the placement with this offset in place
+                    Vector3 randomOffset = new Vector3(0f,0f,0f);//new Vector3(Random.Range(-0.01f, 0.01f), 0f, Random.Range(-0.01f, 0.01f));
 
                     // Change the position so it makes sure not to overlap with the city itself
-                    GameObject placedObject = Instantiate(currentGameObjectPrefab, new Vector3(hit.point.x + randomOffset.x, hit.point.y + 0.5f, hit.point.z + randomOffset.z), hit.transform.rotation);
+                    // The Y position should be * 2 because the pivot is centered, but the true value is 2.25
+                    // TODO - Why is 2.25 the value and not 2, is the pivot not truly centered?
+                    GameObject placedObject = Instantiate(currentGameObjectPrefab, new Vector3(hit.point.x + randomOffset.x, hit.point.y * 2.25f, hit.point.z + randomOffset.z), hit.transform.rotation);
                     placedObject.transform.SetParent(hit.transform);
 
-                    // TODO: Change to use simpler box colliders, will be more accurate overall
                     // Logic to make sure it doesn't collide with other gameobjects such as roads & other buildings
                     Collider[] placedObjectColliderHits = Physics.OverlapBox(placedObject.transform.position, placedObject.GetComponent<Collider>().bounds.size / 2, placedObject.transform.rotation, cityItem);
 

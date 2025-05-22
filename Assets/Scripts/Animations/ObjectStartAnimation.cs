@@ -13,7 +13,7 @@ public abstract class ObjectStartAnimation : MonoBehaviour
 
     private GameObject currentParticleEffects;
 
-    private float animationSpeed = 360f; // in degrees per second
+    private float totalRotation = 360f; // in degrees
 
     private float animationTimer = 0.5f; // 1 second animation
 
@@ -62,6 +62,7 @@ public abstract class ObjectStartAnimation : MonoBehaviour
         float elapsedTime = 0f;
 
         Quaternion startRotation = transform.rotation; // for the rotation animations
+        float rotationPerSecond = totalRotation / animationTimer; // degrees to rotate per animation timer second
 
         Vector3 startPosition = transform.position;
         Vector3 maximumHeightPosition = startPosition + Vector3.up * 5f; // maximum vertical position
@@ -69,17 +70,16 @@ public abstract class ObjectStartAnimation : MonoBehaviour
         if(comingDown)
             transform.position = maximumHeightPosition;
 
-        // TODO - Edit. There is still a problem where, if I have more than one animation variable it won't end at beginning rotation automatically
-        // since it will be in a different rotation
+        // I centered the building Pivot to allow for simpler rotation
         while (elapsedTime < animationTimer)
         {
             if (rotatingSideways)
             {
-                transform.Rotate(0f, animationSpeed * Time.deltaTime, 0f);  
+                transform.Rotate(Vector3.up, rotationPerSecond * Time.deltaTime, Space.Self); 
             }
             if (rotatingVertically)
             {
-                transform.Rotate(animationSpeed * Time.deltaTime, 0f , 0f);
+                transform.Rotate(Vector3.right, rotationPerSecond * Time.deltaTime, Space.Self);
             }
             if (comingDown)
             {
@@ -88,8 +88,8 @@ public abstract class ObjectStartAnimation : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        // Here to make sure rotationalways end up correctly
-        transform.rotation = startRotation; // Quaternion.Lerp(transform.rotation, startRotation, Time.deltaTime);
+        // Here to make sure rotationalways end up correctly regardless
+        transform.rotation = startRotation;
         transform.position = startPosition;
     }
 }

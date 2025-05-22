@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 8516248991963846361}
   - component: {fileID: 108258399631865210}
   - component: {fileID: 6268835409096428239}
-  - component: {fileID: -6032429232473339903}
   - component: {fileID: 5372967871932373091}
+  - component: {fileID: -1510109891004649798}
   m_Layer: 7
-  m_Name: DeployableHouse
+  m_Name: DeployableHouseRotateSideways
   m_TagString: City
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2611,7 +2611,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8659faef8711a48e99b8ff679ecff15e, type: 2}
+  - {fileID: 2100000, guid: c945ceb8ed8d440a1a7e121d8f829fea, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2663,19 +2663,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &-6032429232473339903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4029892267600320549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb122db9cd5ec41ea81dd0e8a8199d70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particleEffects: {fileID: 4416822498906840902, guid: ee9f1407a6cd54b16a8cfd5037a6af15, type: 3}
 --- !u!65 &5372967871932373091
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2697,3 +2684,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 2.5, z: 3.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-1510109891004649798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4029892267600320549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46acbbfdf335844528be862304791425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffects: {fileID: 4416822498906840902, guid: ee9f1407a6cd54b16a8cfd5037a6af15, type: 3}

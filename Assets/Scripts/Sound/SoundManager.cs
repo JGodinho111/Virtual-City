@@ -60,7 +60,8 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    // 9 Sounds (edit in Sound Library ScriptableObject):
+    // 9 Currently Existing Sounds (edit in Sound Library ScriptableObject):
+    // | Sound ID | Called From Class |
     // - SpawnSuccess (DragNDropPlacer)
     // - SpawnFailure (DragNDropPlacer)
     // - PanelEnter (UIPanelPositionChange)
