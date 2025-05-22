@@ -131,20 +131,18 @@ public class ElementalEffectsPlacer : MonoBehaviour
             // TODO "Snow Thunder" sound effect
             soundManager.CheckPlaySound("SnowThunder");
 
-            // TODO - Seems to always be spawning at original position, even if I update the city position
-            Vector3 cityPosition = city[0].GetComponent<Rigidbody>().position; // changed it from transform to rigidbody, but still doesn't seem correct
+            Vector3 cityPosition = city[0].GetComponent<Rigidbody>().position;
             Vector3 citySize = city[0].GetComponent<Renderer>().bounds.size;
 
             // Particle Effect
             if (snowEffectPrefab != null)
-                Instantiate(snowEffectPrefab, (cityPosition + citySize) / 2, Quaternion.identity);
+                Instantiate(snowEffectPrefab, cityPosition + citySize / 2, Quaternion.identity);
 
             for (int i = 0; i < 200; i++)
             {
-                // Since the pivot is at 0, 0, 0 the random is between that and the size (which is currently 30)
+                // Since the pivot is at 0, 0, 0 the random is between those coordinates and those coordinates plus the size (which is currently 30)
                 // - if pivot were in the center, I'd get half of the negative position coordinates and half of the positive ones
-                Instantiate(snowPrefab,new Vector3(Random.Range(cityPosition.x, citySize.x), 5f, Random.Range(cityPosition.z, citySize.z)), Quaternion.identity);
-                // City is currently between 0 and 30, so I could just do Random.Range(0, 30), but I'm calling the city specifically so in case I move it everything is where it should be
+                Instantiate(snowPrefab,new Vector3(Random.Range(cityPosition.x, cityPosition.x + citySize.x), 5f, Random.Range(cityPosition.z, cityPosition.z + citySize.z)), Quaternion.identity);
             }
         }
 
