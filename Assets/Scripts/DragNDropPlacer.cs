@@ -109,14 +109,25 @@ public class DragNDropPlacer : MonoBehaviour
 
                 if (currentGameObjectPrefab != null)
                 {
-                    // Randomizing slightly the coordinates so it isn't exactly where it is placed as requested (XZ Plane)
-                    // NOTE: I simply do not like the feel of the placement with this offset in place
-                    Vector3 randomOffset = new Vector3(0f,0f,0f);//new Vector3(Random.Range(-0.01f, 0.01f), 0f, Random.Range(-0.01f, 0.01f));
-
+                    // ---- IGNORE ----- 
                     // Change the position so it makes sure not to overlap with the city itself
-                    // The Y position should be * 2 because the pivot is centered, but the true value is 2.25
-                    // TODO - Why is 2.25 the value and not 2, is the pivot not truly centered?
-                    GameObject placedObject = Instantiate(currentGameObjectPrefab, new Vector3(hit.point.x + randomOffset.x, hit.point.y * 2.25f, hit.point.z + randomOffset.z), hit.transform.rotation);
+                    // Why 1.25f ??? -  disregarding for now
+
+                    //Debug.Log("City normal is " + hit.normal);
+                    //Debug.Log("Modified City normal is " + hit.normal * 1.25f);
+                    //Debug.Log("Gameobject transform values are " + currentGameObjectPrefab.transform.position);
+
+                    //Vector3 gameObjectPosition = currentGameObjectPrefab.transform.position;
+                    //Vector3 normalizedPosition = gameObjectPosition.normalized;
+
+                    //Debug.Log("Gameobject normalised transform values are " + normalizedPosition);
+                    // ---- IGNORE ----- 
+
+                    // Adding the normal so regardless of city tilt, it is always correct
+                    Vector3 position = hit.point + hit.normal * 1.25f; //1.25f checked directly in director
+                    // Essentially what is happening without the 1.25 is it spawning within the city (1/4 of the way inside)
+
+                    GameObject placedObject = Instantiate(currentGameObjectPrefab, position, hit.transform.rotation);
                     placedObject.transform.SetParent(hit.transform);
 
                     // Logic to make sure it doesn't collide with other gameobjects such as roads & other buildings
@@ -127,30 +138,31 @@ public class DragNDropPlacer : MonoBehaviour
                         if (colliderHit.gameObject != placedObject && colliderHit.gameObject.layer != cityMask)
                         {
                             Debug.LogWarning("Gameobject hit another cityItem, and so is removed!");
-                            // TODO - Fail to deploy sound
+                            // Fail to deploy sound
                             soundManager.CheckPlaySound("SpawnFailure");
                             Destroy(placedObject);
                             return;
                         }
                     }
 
-                    Debug.Log("Gameobject hit another, but it is the city so it remains in the scene.");
-                    // TODO - Successful deploy sound
+                    // Successful deploy sound
                     soundManager.CheckPlaySound("SpawnSuccess");
+
+                    Debug.Log("Gameobject hit another, but it is the city so it remains in the scene.");
                 }
                 else
                 {
-                    Debug.LogError("No currentGameObjectPrefab exists to instantiate!");
-                    // TODO - Fail to deploy sound
+                    // Fail to deploy sound
                     soundManager.CheckPlaySound("SpawnFailure");
+                    Debug.LogError("No currentGameObjectPrefab exists to instantiate!");
                 }
             }
-            else
-            {
-                Debug.LogWarning("Raycast collided outside the buildable city");
-                // TODO - Fail to deploy sound
-                soundManager.CheckPlaySound("SpawnFailure");
-            }
+        }
+        else
+        {
+            // Fail to deploy sound
+            soundManager.CheckPlaySound("SpawnFailure");
+            Debug.Log("Raycast collided outside the buildable city");
         }
     }
 }

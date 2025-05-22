@@ -92,10 +92,12 @@ public class CityMover : MonoBehaviour
                     else if (currentMode == Movement.MoveXZ)
                     {
                         // Update grabbing point to be the exact coordinates of the place it was grabbed and not the gameobject pivot
-                        Vector3 objectCameraHit = transform.InverseTransformPoint(hit.point);
+                        xzMovementPointOffset = transform.InverseTransformPoint(hit.point);
 
-                        // Note: Patch fix to stop gameobject from going down the Y axis, but it still moves slightly on x and z axis, but it is dismissable
-                        xzMovementPointOffset = new Vector3(objectCameraHit.x, 0f, objectCameraHit.z);
+                        // Note: Attempt to Patch fix to stop gameobject from going down the Y axis, but can't do it this way because the city would still be moved when not flat
+                        //Vector3 objectCameraHit = transform.InverseTransformPoint(hit.point);
+                        //xzMovementPointOffset = new Vector3(objectCameraHit.x, 0f, objectCameraHit.z);
+
                         StartCoroutine(MoveXZPlane());
                     }
                     else
@@ -148,6 +150,8 @@ public class CityMover : MonoBehaviour
             if(movePlane.Raycast(ray, out float enter))
             {
                 Vector3 grabHitPoint = ray.GetPoint(enter);
+
+                // xzMovementPointOffset still has a problem, if I'm grabbing it from the sides or the bottom, disregarding for now
                 Vector3 newPosition = Vector3.Lerp(cityRigidbody.position, grabHitPoint - xzMovementPointOffset, 0.3f);
                 cityRigidbody.MovePosition(newPosition);
             }

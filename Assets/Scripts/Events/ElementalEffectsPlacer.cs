@@ -99,7 +99,7 @@ public class ElementalEffectsPlacer : MonoBehaviour
 
         if (allCityObjects != null)
         {
-            // TODO "Wuhhhooop" sound effect - assume it's alien objects instead of trash
+            // Trash sound effect - assume it's alien objects instead of trash
             soundManager.CheckPlaySound("Trash");
 
             foreach (var cityPart in allCityObjects)
@@ -128,7 +128,7 @@ public class ElementalEffectsPlacer : MonoBehaviour
 
         if(city != null)
         {
-            // TODO "Snow Thunder" sound effect
+            // "Snow Thunder" sound effect
             soundManager.CheckPlaySound("SnowThunder");
 
             Vector3 cityPosition = city[0].GetComponent<Rigidbody>().position;

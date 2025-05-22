@@ -25,7 +25,7 @@ public class UIButtonPlacementAction : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        // TODO - Swoosh sound as if I were "grabbing the object from nothing"
+        // Press sound as if I were "grabbing the object from nothing"
         soundManager.CheckPlaySound("ButtonPress");
         if(dragNDropPlacer != null)
             dragNDropPlacer.StartGameObjectPlacement(gameObjectToPlacePrefab, imageGameObjectToPlacePrefab);

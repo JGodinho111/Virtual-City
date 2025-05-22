@@ -14,47 +14,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - id: SpawnSuccess
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 2bbee9d1fb4a04fe4b999cac550cf449, type: 3}
     volume: 1
     pitch: 1
     loop: 0
   - id: SpawnFailure
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: dca2cadd369424f6ab827d6d494b43f8, type: 3}
     volume: 1
     pitch: 1
     loop: 0
   - id: PanelEnter
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 38b6bd73b15294aaa831120d3d5d8e03, type: 3}
     volume: 1
     pitch: 1
     loop: 0
   - id: PanelExit
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 8e4b72910bdc547289ee6ca3e773ae10, type: 3}
     volume: 1
     pitch: 1
     loop: 0
   - id: ButtonPress
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: d5c8e60553ff54c4089e7a4e41e11141, type: 3}
     volume: 1
     pitch: 1
     loop: 0
   - id: ButtonEnter
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 916add384fd2948aaa8a7a5717b20334, type: 3}
     volume: 1
     pitch: 1
     loop: 0
   - id: ButtonExit
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 09c050852490d4c55963d6e4b39871d1, type: 3}
     volume: 1
     pitch: 1
     loop: 0
   - id: Trash
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 5cfa14f4cfd074f45aadab56a9d6388c, type: 3}
     volume: 1
     pitch: 1
     loop: 0
   - id: SnowThunder
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: f6b0692ee1d654f27acd7d14de92a90f, type: 3}
     volume: 1
     pitch: 1
     loop: 0

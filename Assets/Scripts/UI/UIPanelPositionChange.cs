@@ -12,7 +12,7 @@ public class UIPanelPositionChange : MonoBehaviour, IPointerEnterHandler, IPoint
 
     private Vector2 panelSize;
 
-    private SoundManager soundManager;
+    //private SoundManager soundManager;
 
     void Awake()
     {
@@ -24,7 +24,7 @@ public class UIPanelPositionChange : MonoBehaviour, IPointerEnterHandler, IPoint
 
     private void Start()
     {
-        soundManager = SoundManager.Instance;
+        //soundManager = SoundManager.Instance;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -35,15 +35,15 @@ public class UIPanelPositionChange : MonoBehaviour, IPointerEnterHandler, IPoint
         // and doesn't start going back and forth between OnPointerEnter and OnPointerExit non-stop
         Vector2 newSize = panelSize + new Vector2(0f, 30f);
         panelRectTransform.sizeDelta = newSize;
-        // TODO - Entering Selectable Area Sound
-        soundManager.CheckPlaySound("PanelEnter");
+        // NOT USED - Entering Selectable Area Sound
+        //soundManager.CheckPlaySound("PanelEnter");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         panelRectTransform.anchoredPosition = panelStartPosition;
         panelRectTransform.sizeDelta = panelSize;
-        // TODO - Leaving Selectable Area Sound
-        soundManager.CheckPlaySound("PanelExit");
+        // NOT USED - Leaving Selectable Area Sound
+        //soundManager.CheckPlaySound("PanelExit");
     }
 }

@@ -34,15 +34,16 @@ public class UIButtonHoverZoom : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        innerImage.rectTransform.localScale = originalImageScale * zoomScale;
-        // TODO - Fwoowh Entering Button Sound
+        // Click Entering Button Sound
         soundManager.CheckPlaySound("ButtonEnter");
+        innerImage.rectTransform.localScale = originalImageScale * zoomScale;
+        
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         innerImage.rectTransform.localScale = originalImageScale;
-        // TODO - Leaving Button Sound
-        soundManager.CheckPlaySound("ButtonExit");
+        // NOT USED - Leaving Button Sound
+        //soundManager.CheckPlaySound("ButtonExit");
     }
 }

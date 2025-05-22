@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,9 @@ public class SoundManager : MonoBehaviour
     private SoundLibrary soundLibrary;
 
     private Dictionary<string, Sound> soundMap;
+
+    private List<AudioSource> audioSourcePool = new();
+    private int sourcePoolSize = 5; // Could have one per soundMap id, but not needed right now
 
     // Singleton Setup
     private void Awake()
@@ -45,6 +49,12 @@ public class SoundManager : MonoBehaviour
             }
         }
 
+        // Setting up the source pool
+        for(int i = 0; i< sourcePoolSize; i++)
+        {
+            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            audioSourcePool.Add(audioSource);
+        }
     }
 
     // Called by multiple classes to play a sound
@@ -64,32 +74,52 @@ public class SoundManager : MonoBehaviour
     // | Sound ID | Called From Class |
     // - SpawnSuccess (DragNDropPlacer)
     // - SpawnFailure (DragNDropPlacer)
-    // - PanelEnter (UIPanelPositionChange)
-    // - PanelExit (UIPanelPositionChange)
+    // - PanelEnter (UIPanelPositionChange) - NOT USED
+    // - PanelExit (UIPanelPositionChange) - NOT USED
     // - ButtonPress (UIButtonPlacementAction)
     // - ButtonEnter (UIButtonHoverZoom)
-    // - ButtonExit (UIButtonHoverZoom)
+    // - ButtonExit (UIButtonHoverZoom) - NOT USED
     // - Trash (ElementalEffectsPlacer)
     // - SnowThunder (ElementalEffectsPlacer)
     private IEnumerator PlaySoundOneShot(Sound currentCliptoPlay)
     {
         if(currentCliptoPlay.audioClip != null)
         {
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            AudioSource currentAudioSource = GetFreeAudioSource();
 
-            audioSource.clip = currentCliptoPlay.audioClip;
-            audioSource.volume = currentCliptoPlay.volume;
-            audioSource.PlayOneShot(currentCliptoPlay.audioClip);
-            if (!audioSource.isPlaying)
+            if (currentAudioSource == null)
             {
-                Destroy(audioSource);
+                Debug.LogWarning("No audioSource available at the moment");
+                yield return null;
             }
+
+            currentAudioSource.clip = currentCliptoPlay.audioClip;
+            currentAudioSource.volume = currentCliptoPlay.volume;
+
+            // To start playing at half the clip because I usually have dead space before the audio
+            currentAudioSource.time = currentCliptoPlay.audioClip.length / 2f;
+
+            currentAudioSource.PlayOneShot(currentCliptoPlay.audioClip);
+
+            currentAudioSource.clip = null;            
             yield return null;
         }
         else
         {
             Debug.LogWarning(currentCliptoPlay.id + " is missing its audio clip!");
+            yield return null;
         }
         
+    }
+
+    private AudioSource GetFreeAudioSource()
+    {
+        foreach (var audioSource in audioSourcePool)
+        {
+            if (audioSource.clip == null)
+                return audioSource;
+        }
+
+        return null;
     }
 }
