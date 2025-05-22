@@ -20,6 +20,9 @@ public class DragNDropPlacer : MonoBehaviour
     [SerializeField]
     private LayerMask cityItem;
 
+    [SerializeField]
+    private LayerMask cityTree;
+
     private GameObject currentGameobjectImage;
     private GameObject currentGameObjectPrefab;
 
@@ -135,13 +138,29 @@ public class DragNDropPlacer : MonoBehaviour
 
                     foreach(var colliderHit in placedObjectColliderHits)
                     {
-                        if (colliderHit.gameObject != placedObject && colliderHit.gameObject.layer != cityMask)
+                        // Needs to check if didn't hit self 
+                        if (colliderHit.gameObject != placedObject)
                         {
-                            Debug.LogWarning("Gameobject hit another cityItem, and so is removed!");
+                            Debug.Log("Gameobject hit another cityItem, and so is removed!");
                             // Fail to deploy sound
                             soundManager.CheckPlaySound("SpawnFailure");
                             Destroy(placedObject);
                             return;
+                        }
+                        
+                    }
+
+                    // If it can, then proceed also check trees
+                    Collider[] treesColliderHits = Physics.OverlapBox(placedObject.transform.position, placedObject.GetComponent<Collider>().bounds.size / 2, placedObject.transform.rotation, cityTree);
+
+                    foreach (var colliderHit in treesColliderHits)
+                    {
+                        // Needs to check if didn't hit self 
+                        if (colliderHit.gameObject != placedObject)
+                        {
+                            Debug.Log("Gameobject hit tree, and so tree is removed!");
+                            // Delete Tree
+                            Destroy(colliderHit.gameObject);
                         }
                     }
 
