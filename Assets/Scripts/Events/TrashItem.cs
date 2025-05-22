@@ -18,10 +18,5 @@ public class TrashItem : HazardItem
                 Destroy(this.gameObject);
             }
         }
-        else
-        {
-            Debug.Log("City is null");
-        }
-
     }
 }

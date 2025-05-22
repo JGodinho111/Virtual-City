@@ -130,18 +130,31 @@ public class ElementalEffectsPlacer : MonoBehaviour
             // "Snow Thunder" sound effect
             soundManager.CheckPlaySound("SnowThunder");
 
-            Vector3 cityPosition = city[0].GetComponent<Rigidbody>().position;
-            Vector3 citySize = city[0].GetComponent<Renderer>().bounds.size;
+            GameObject actualCity = null;
 
-            // Particle Effect
-            if (snowEffectPrefab != null)
-                Instantiate(snowEffectPrefab, cityPosition + citySize / 2, Quaternion.identity);
-
-            for (int i = 0; i < 200; i++)
+            foreach (var cityObject in city)
             {
-                // Since the pivot is at 0, 0, 0 the random is between those coordinates and those coordinates plus the size (which is currently 30)
-                // - if pivot were in the center, I'd get half of the negative position coordinates and half of the positive ones
-                Instantiate(snowPrefab,new Vector3(Random.Range(cityPosition.x, cityPosition.x + citySize.x), 5f, Random.Range(cityPosition.z, cityPosition.z + citySize.z)), Quaternion.identity);
+                if (cityObject.GetComponent<Rigidbody>() != null)
+                {
+                    actualCity = cityObject;
+                }
+            }
+
+            if(actualCity != null)
+            {
+                Vector3 cityPosition = actualCity.GetComponent<Rigidbody>().position;
+                Vector3 citySize = actualCity.GetComponent<Renderer>().bounds.size;
+
+                // Particle Effect
+                if (snowEffectPrefab != null)
+                    Instantiate(snowEffectPrefab, cityPosition + citySize / 2, Quaternion.identity);
+
+                for (int i = 0; i < 200; i++)
+                {
+                    // Since the pivot is at 0, 0, 0 the random is between those coordinates and those coordinates plus the size (which is currently 30)
+                    // - if pivot were in the center, I'd get half of the negative position coordinates and half of the positive ones
+                    Instantiate(snowPrefab, new Vector3(Random.Range(cityPosition.x, cityPosition.x + citySize.x), 5f, Random.Range(cityPosition.z, cityPosition.z + citySize.z)), Quaternion.identity);
+                }
             }
         }
 
