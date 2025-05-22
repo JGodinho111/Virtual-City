@@ -74,3 +74,7 @@ crashlytics-build.properties
 # Ignore TextMesh Pro Examples folder
 Assets/TextMesh Pro/
 Assets/TextMesh Pro.meta
+
+# Ignore Sleek essential UI pack Assets from the Unity Asset Store
+Assets/UI Pack/
+Assets/UI Pack.meta
