@@ -81,7 +81,6 @@ public class ElementalEffectsPlacer : MonoBehaviour
         if(Random.Range(0, 2) == 0)
         {
             currentEvent = ongoingEvent.Trash;
-            // TODO: Ui event badge stating trash event started
             StartGarbadgeEvent();
         }
         else
