@@ -14,7 +14,7 @@ public class UIButtonHoverZoom : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private Image innerImage;
     private Vector2 originalImageScale;
 
-    private float zoomScale = 1.1f;
+    private float zoomScale = 1.5f;
 
     private SoundManager soundManager;
 

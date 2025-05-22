@@ -2,9 +2,15 @@
 Prototype 3D City Game
 - After donwload install the following assets (from the Unity Asset Store) using Package Manager:
     -   Sleek essential UI pack by F3jry (https://assetstore.unity.com/packages/2d/gui/icons/sleek-essential-ui-pack-170650)
+    - SimplePoly City - Low Poly Assets by VenCreations (https://assetstore.unity.com/packages/3d/environments/simplepoly-city-low-poly-assets-58899)
+        - If any issues arise regarding materials select them and go to Window > Rendering > Render Pipeline Converter, and tick Material Upgrade, then press "Initialize And Convert". 
 
 - The Prototype Functionalities
-    - 3D City that can be moved around (left mouse button) and tiled (left mouse button)
+    - 3D 30x30 City
+        -  Can be moved around (left mouse button) and tiled (left mouse button)
+        - Originally all assets were created manually using Unity ProBuilder to test all features
+        - Later changed to use external assets to be more visually appealing
+        - Playable version also available on itch.io at (LINK_NOT_YET_EXISTS)
     - Deployable assets by clicking on their UI button and dragging to desired spawn location
         - If they are outside the city or in contact with already existing scene items they won't appear
         - If they can spawn, the trees near them are destroyed

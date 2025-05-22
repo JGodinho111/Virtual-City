@@ -112,25 +112,21 @@ public class DragNDropPlacer : MonoBehaviour
 
                 if (currentGameObjectPrefab != null)
                 {
-                    // ---- IGNORE ----- 
-                    // Change the position so it makes sure not to overlap with the city itself
-                    // Why 1.25f ??? -  disregarding for now
-
-                    //Debug.Log("City normal is " + hit.normal);
-                    //Debug.Log("Modified City normal is " + hit.normal * 1.25f);
-                    //Debug.Log("Gameobject transform values are " + currentGameObjectPrefab.transform.position);
-
-                    //Vector3 gameObjectPosition = currentGameObjectPrefab.transform.position;
-                    //Vector3 normalizedPosition = gameObjectPosition.normalized;
-
-                    //Debug.Log("Gameobject normalised transform values are " + normalizedPosition);
-                    // ---- IGNORE ----- 
-
+                    // NOTE: This was a problem with the way I setup the probuilder mesh, it now works perfectly (and doesn't use them - only in the city base)
+                    //---- IGNORE ----
                     // Adding the normal so regardless of city tilt, it is always correct
-                    Vector3 position = hit.point + hit.normal * 1.25f; //1.25f checked directly in director
+                    //Vector3 position = hit.point + hit.normal * 1.25f; //1.25f checked directly in director
                     // Essentially what is happening without the 1.25 is it spawning within the city (1/4 of the way inside)
+                    //---- IGNORE ----
 
-                    GameObject placedObject = Instantiate(currentGameObjectPrefab, position, hit.transform.rotation);
+                    // To make it so the rotation is randomized
+                    int[] angles = { 0, 90, 180, 270};
+
+                    // Since the external asset prefabs are facing the opposite way of what I want, I need to modify them rather than just using hit.transform.rotation
+                    Quaternion rotationOfNewPrefabs = hit.transform.rotation * Quaternion.Euler(0f, angles[Random.Range(0, angles.Length)], 0f);
+
+                    // I had a random offset to offset the position, but I decided against it because it didn+t feel right
+                    GameObject placedObject = Instantiate(currentGameObjectPrefab, hit.point, rotationOfNewPrefabs);
                     placedObject.transform.SetParent(hit.transform);
 
                     // Logic to make sure it doesn't collide with other gameobjects such as roads & other buildings

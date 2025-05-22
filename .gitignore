@@ -78,3 +78,7 @@ Assets/TextMesh Pro.meta
 # Ignore Sleek essential UI pack Assets from the Unity Asset Store
 Assets/UI Pack/
 Assets/UI Pack.meta
+
+# Ignore SimplePoly City - Low Poly Assets from the Unity Asset Store
+Assets/SimplePoly City - Low Poly Assets/
+Assets/SimplePoly City - Low Poly Assets.meta
