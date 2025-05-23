@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 /// <summary>
 ///  Given a UI button press, place a desired game object into the city
-///  NOTE: If it were an XR Scene, simply replace the two Mouse.current references
-///  with the desired ActionInputReference (in this case pertaining to the mouse left button)
-///  and add to its action properties the desired MetaQuest button binding
+///  
+///  NOTE: For XR, edit the Input Action bindings for the actions for XR and regenerate class
 /// </summary>
 public class DragNDropPlacer : MonoBehaviour
 {
@@ -35,6 +34,23 @@ public class DragNDropPlacer : MonoBehaviour
 
     private SoundManager soundManager;
 
+    // Instead of accessing input action references, using the class I auto generated from the existing ones
+    private InputSystem_Actions inputActions;
+
+    private void Awake()
+    {
+        inputActions = new();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Enable();
+    }
+    private void OnDisable()
+    {
+        inputActions.Disable();
+    }
+
     private void Start()
     {
         soundManager = SoundManager.Instance;
@@ -42,7 +58,7 @@ public class DragNDropPlacer : MonoBehaviour
 
     void Update()
     {
-        if(buttonToPlacePressed && Mouse.current.leftButton.wasReleasedThisFrame)
+        if(buttonToPlacePressed && inputActions.Interactions.LeftMouseClick.WasReleasedThisFrame())//Mouse.current.leftButton.wasReleasedThisFrame)
         {
             EndGameObjectPlacement(); // hide image and future calls to place object
             PlaceObject(); // attempt to place the wanted gameobject
@@ -104,7 +120,7 @@ public class DragNDropPlacer : MonoBehaviour
 
     private void PlaceObject()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray = mainCamera.ScreenPointToRay(inputActions.Interactions.MousePosition.ReadValue<Vector2>()); //Mouse.current.position.ReadValue());
         if (Physics.Raycast(ray, out RaycastHit hit, cityMask))
         {
             if (hit.collider.CompareTag("City")) // technically not needed since I'm already looking at the layerMask City

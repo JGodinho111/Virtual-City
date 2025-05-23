@@ -9,9 +9,7 @@ using UnityEngine.InputSystem;
 /// or tilts it around the Z axis (right click)
 /// - Updated to now use physics-based movement
 /// 
-/// NOTE: If it were an XR Scene, simply replace the two Mouse.current references
-/// with the desired ActionInputReference (in this case pertaining to the mouse left button and another to the right mouse button)
-/// and add to its action properties the desired MetaQuest button binding
+/// NOTE: For XR, edit the Input Action bindings for the actions for XR and regenerate class
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class CityMover : MonoBehaviour
@@ -37,7 +35,22 @@ public class CityMover : MonoBehaviour
 
     private Rigidbody cityRigidbody;
 
-    
+    // Instead of accessing input action references, using the class I auto generated from the existing ones
+    private InputSystem_Actions inputActions;
+
+    private void Awake()
+    {
+        inputActions = new();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Enable();
+    }
+    private void OnDisable()
+    {
+        inputActions.Disable();
+    }
 
     private void Start()
     {
@@ -50,21 +63,21 @@ public class CityMover : MonoBehaviour
 
     void Update()
     {
-        if (currentMode == Movement.None && Mouse.current.leftButton.wasPressedThisFrame)
+        if (currentMode == Movement.None && inputActions.Interactions.LeftMouseClick.WasPressedThisFrame()) //Mouse.current.leftButton.wasPressedThisFrame)
         {
             currentMode = Movement.MoveXZ;
             Debug.Log("Checking to move city on XZ plane");
             CheckCityCollisionToMove(); // check if hit the city
         }
 
-        if (currentMode == Movement.None && Mouse.current.rightButton.wasPressedThisFrame)
+        if (currentMode == Movement.None && inputActions.Interactions.RightMouseClick.WasPressedThisFrame())//Mouse.current.rightButton.wasPressedThisFrame)
         {
             currentMode = Movement.RotateZ;
             Debug.Log("Checking to tilt city on Z axis");
             CheckCityCollisionToMove(); // check if hit the city
         }
 
-        if (currentMode != Movement.None && (Mouse.current.leftButton.wasReleasedThisFrame || Mouse.current.rightButton.wasReleasedThisFrame))
+        if (currentMode != Movement.None && (inputActions.Interactions.LeftMouseClick.WasReleasedThisFrame() || inputActions.Interactions.RightMouseClick.WasReleasedThisFrame()))//(Mouse.current.leftButton.wasReleasedThisFrame || Mouse.current.rightButton.wasReleasedThisFrame))
         {
             currentMode = Movement.None;
             //StopMovingCity();
@@ -79,12 +92,12 @@ public class CityMover : MonoBehaviour
         {
             LayerMask allCity = cityMask | cityItem;
 
-            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Ray ray = mainCamera.ScreenPointToRay(inputActions.Interactions.MousePosition.ReadValue<Vector2>()); // Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out RaycastHit hit, allCity))
             {
                 if (hit.collider.CompareTag("City") && (hit.transform == this.transform || hit.transform.gameObject.GetComponentInParent<Transform>().transform == hit.transform))
                 {
-                    lastMousePosition = Mouse.current.position.ReadValue();
+                    lastMousePosition = inputActions.Interactions.MousePosition.ReadValue<Vector2>(); //Mouse.current.position.ReadValue();
                     if (currentMode == Movement.RotateZ)
                     {
                         StartCoroutine(RotateZAxis());
@@ -121,9 +134,9 @@ public class CityMover : MonoBehaviour
     // and moves the rigidbody by multiplying the current rotation with the new one
     private IEnumerator RotateZAxis()
     {
-        while (Mouse.current.rightButton.isPressed && currentMode == Movement.RotateZ)
+        while (inputActions.Interactions.RightMouseClick.IsPressed() && currentMode == Movement.RotateZ) //Mouse.current.rightButton.isPressed
         {
-            Vector2 currentMousePosition = Mouse.current.position.ReadValue();
+            Vector2 currentMousePosition = inputActions.Interactions.MousePosition.ReadValue<Vector2>();//Mouse.current.position.ReadValue();
             float delta = currentMousePosition.x - lastMousePosition.x;
 
             Quaternion rotation = Quaternion.AngleAxis(-delta * 0.5f, Vector3.forward);
@@ -143,9 +156,9 @@ public class CityMover : MonoBehaviour
     {
         Plane movePlane = new Plane(Vector3.up, cityRigidbody.transform.position);
 
-        while (Mouse.current.leftButton.isPressed && currentMode == Movement.MoveXZ)
+        while (inputActions.Interactions.LeftMouseClick.IsPressed() && currentMode == Movement.MoveXZ) //Mouse.current.leftButton.isPressed
         {
-            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Ray ray = mainCamera.ScreenPointToRay(inputActions.Interactions.MousePosition.ReadValue<Vector2>()); // Mouse.current.position.ReadValue());
 
             if(movePlane.Raycast(ray, out float enter))
             {

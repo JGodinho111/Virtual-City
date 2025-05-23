@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>
 /// Checks UI Raycasts based on mouse position
-/// NOTE: For XR, change Mouse.current with InputActionReference of current controller position in 2D (need to double check)
+/// 
+/// NOTE: For XR, edit the Input Action bindings for the actions for XR and regenerate class
 /// </summary>
 public class UIBlockDetector : MonoBehaviour
 {
@@ -17,13 +16,30 @@ public class UIBlockDetector : MonoBehaviour
     [SerializeField]
     GraphicRaycaster canvasGraphicRaycaster; // Part of Unity's canvas
 
+    // Instead of accessing input action references, using the class I auto generated from the existing ones
+    private InputSystem_Actions inputActions;
+
+    private void Awake()
+    {
+        inputActions = new();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Enable();
+    }
+    private void OnDisable()
+    {
+        inputActions.Disable();
+    }
+
     public bool IsOnUI()
     {
         if (canvasGraphicRaycaster == null)
             return false;
 
         PointerEventData pointerData = new PointerEventData(eventSystem);
-        pointerData.position = Mouse.current.position.ReadValue();
+        pointerData.position = inputActions.Interactions.MousePosition.ReadValue<Vector2>(); //Mouse.current.position.ReadValue();
 
         List<RaycastResult> results = new ();
         canvasGraphicRaycaster.Raycast(pointerData, results);
