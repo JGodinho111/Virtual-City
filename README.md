@@ -12,11 +12,17 @@ Prototype 3D City Game
         -  Can be moved around (left mouse button) and tiled (left mouse button)
         - Originally all assets were created manually using Unity ProBuilder to test all features
         - Later changed to use external assets to be more visually appealing
-        - Playable version also available on itch.io at (LINK_NOT_YET_EXISTS)
+        - Playable version also available on itch.io at (https://jgodinho.itch.io/virtual-city-demo)
+    - UI made to be intuitive and appealing
+        - Button Layout: the buttons are layout elements within a horizontal layout group panel.
+        - Zooming in UI buttons when hovered on and the icon fade outs when trying to place an deployable asset, info panel pop-up when hovering over info icon.
     - Deployable assets by clicking on their UI button and dragging to desired spawn location
         - If they are outside the city or in contact with already existing scene items they won't appear
         - If they can spawn, the trees near them are destroyed
         - Each spawned object has a particle effect
+    - Animation & Icon to Object Transition
+        - Moves object around itself or "falls down" as UI icon fades away.
+        - Created in a way that combinations of these animations can be extended with wanted parameter combinations
     -  2 Ranomized Events
         - These events are triggered by a UI button for testing
         - Events spawn physics-based objects which prevent new deployable assets placements
@@ -24,9 +30,7 @@ Prototype 3D City Game
         - One event spawns 1 hazard near each existing city item (including spawned ones)
         - The other spawns a multitude of small hazards on the city location
         - Each have unique particle effects
-    - UI made to be intuitive and appealing
-        - Button Layout: the buttons are layout elements within a horizontal layout group panel.
-        - Zooming in UI buttons when hovered on and the icon fade outs when trying to place an deployable asset, info panel pop-up when hovering over info icon.
+    
     - Other Features:
         - Sounds
             - Simple sound effects were implemented for some game actions
@@ -48,7 +52,7 @@ Prototype 3D City Game
 - Unity Scene Descriptions
     - The Sample Scene (where I created and tested most of the features before changing the assets & has already changed UI).
     - TEST CHALLENGE SCENE: The Scene With New Assets which has all the requested features plus the car driving around four map points.
-    - The Gameplay Scene which has everything previously created with simple game logic. This is the version available on itch.io (LINK_NOT_YET_AVAILABLE).
+    - The Gameplay Scene which has everything previously created with simple game logic. This is the version available on itch.io (https://jgodinho.itch.io/virtual-city-demo).
 
 - Code Structure
     - *Generate Input Action Map C# Class in Unity Editor

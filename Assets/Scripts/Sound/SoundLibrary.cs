@@ -6,17 +6,4 @@ using UnityEngine;
 public class SoundLibrary : ScriptableObject
 {
     public List<Sound> sounds;
-
-    // Not needed
-    /*public Sound GetSoundByName(string idName)
-    {
-        foreach(var sound in sounds)
-        {
-            if(sound.id == idName)
-            {
-                return sound;
-            }
-        }
-        return null;
-    }*/
 }

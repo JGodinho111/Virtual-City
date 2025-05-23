@@ -21,8 +21,8 @@ public class DragNDropPlacer : MonoBehaviour
     [SerializeField]
     private LayerMask cityTree;
 
-    private GameObject currentGameobjectImage;
-    private GameObject currentGameObjectPrefab;
+    private GameObject currentGameobjectImage; // is assigned when StartGameObjectPlacement is called
+    private GameObject currentGameObjectPrefab; // is assigned when StartGameObjectPlacement is called
 
     private bool buttonToPlacePressed = false; // flag to only check left mouse click when
 

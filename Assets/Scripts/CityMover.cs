@@ -55,7 +55,7 @@ public class CityMover : MonoBehaviour
     {
         cityRigidbody = this.GetComponent<Rigidbody>();
 
-        // Not needed since already set up in the inspector, just to explain it
+        // Not needed since already set up in the inspector, but just in case I change it accidentally
         cityRigidbody.useGravity = false; // Not using it so the city doesn't just fall
         cityRigidbody.isKinematic = true; // So rigidbody is controlled via the script
     }
@@ -105,11 +105,6 @@ public class CityMover : MonoBehaviour
                     {
                         // Update grabbing point to be the exact coordinates of the place it was grabbed and not the gameobject pivot
                         xzMovementPointOffset = transform.InverseTransformPoint(hit.point);
-
-                        // Note: Attempt to Patch fix to stop gameobject from going down the Y axis, but can't do it this way because the city would still be moved when not flat
-                        //Vector3 objectCameraHit = transform.InverseTransformPoint(hit.point);
-                        //xzMovementPointOffset = new Vector3(objectCameraHit.x, 0f, objectCameraHit.z);
-
                         StartCoroutine(MoveXZPlane());
                     }
                     else
@@ -121,7 +116,6 @@ public class CityMover : MonoBehaviour
                 else
                 {
                     Debug.Log("Raycast collided outside all city objects");
-                    // Ignore
                     return;
                 }
             }

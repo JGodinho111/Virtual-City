@@ -36,7 +36,7 @@ public abstract class ObjectStartAnimation : MonoBehaviour
         Debug.Log("Animation Parameters set up with standard values.");
     }
 
-    // On Instantiation, call for animation
+    // On Instantiation of gameobject, call for animation
     private void Start()
     {
         StartAnimation();

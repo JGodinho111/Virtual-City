@@ -12,7 +12,6 @@ public class SimpleCarMover : MonoBehaviour
     private float carSpeed = 3f;
     private int currentWayPointIndex;
 
-    // Update is called once per frame
     void Update()
     {
         if(wayPoints.Length != 0)
