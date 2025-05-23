@@ -3,7 +3,9 @@ Prototype 3D City Game
 - After donwload install the following assets (from the Unity Asset Store) using Package Manager:
     -   Sleek essential UI pack by F3jry (https://assetstore.unity.com/packages/2d/gui/icons/sleek-essential-ui-pack-170650)
     - SimplePoly City - Low Poly Assets by VenCreations (https://assetstore.unity.com/packages/3d/environments/simplepoly-city-low-poly-assets-58899)
-        - If any issues arise regarding materials select them and go to Window > Rendering > Render Pipeline Converter, and tick Material Upgrade, then press "Initialize And Convert". 
+        - If any issues arise regarding materials select them and go to Window > Rendering > Render Pipeline Converter, and tick Material Upgrade, then press "Initialize And Convert".
+- Other external assets used:
+    - [non copyright music] Lofi Type Beat - imperfect | aesthetic lofi music / Lofiru on Youtube (https://www.youtube.com/watch?v=YTQAjKBNp8g)
 
 - The Prototype Functionalities
     - 3D 30x30 City
@@ -22,10 +24,18 @@ Prototype 3D City Game
         - One event spawns 1 hazard near each existing city item (including spawned ones)
         - The other spawns a multitude of small hazards on the city location
         - Each have unique particle effects
-    - Sounds
-        - Simple sound effects were implemented for some game actions
-    - Skybox & Background
-        - Changed the preset skybox with a new one and added transparent spheres in the far background to appear as halos (my take on the halo-like effect seen in the example)
     - UI made to be intuitive and appealing
         - Zooming in UI buttons when hovered on and the icon fade outs when trying to place an deployable asset are good examples.
+    - Other Features:
+        - Sounds
+            - Simple sound effects were implemented for some game actions
+        - Skybox & Background
+            - Changed the preset skybox with a new one and added transparent spheres in the far background to appear as halos (my take on the halo-like effect seen in the example)
+        - TODO: Simple car driving around 4 set points on the road for aesthetics
+    - Future Iteration Possibilities:
+        - Simple actual game structure (e.g. place as many buildings in the city without destroying trees within a set ammount of time, while events happen frequently and need to be dealt with)
+        - Color change of City while being held
+        - Camera Shake on City Grab (not relevant for XR)
+        - Working traffic system
+        - Civilian NPCs (with set movement/random movement, based on NavMeshes for example)
      

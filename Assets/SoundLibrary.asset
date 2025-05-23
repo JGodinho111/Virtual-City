@@ -15,12 +15,12 @@ MonoBehaviour:
   sounds:
   - id: SpawnSuccess
     audioClip: {fileID: 8300000, guid: 2bbee9d1fb4a04fe4b999cac550cf449, type: 3}
-    volume: 1
+    volume: 0.1
     pitch: 1
     loop: 0
   - id: SpawnFailure
     audioClip: {fileID: 8300000, guid: dca2cadd369424f6ab827d6d494b43f8, type: 3}
-    volume: 1
+    volume: 0.1
     pitch: 1
     loop: 0
   - id: PanelEnter
@@ -35,7 +35,7 @@ MonoBehaviour:
     loop: 0
   - id: ButtonPress
     audioClip: {fileID: 8300000, guid: d5c8e60553ff54c4089e7a4e41e11141, type: 3}
-    volume: 1
+    volume: 0.1
     pitch: 1
     loop: 0
   - id: ButtonEnter
@@ -58,3 +58,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 0
+  - id: BackgroundMusic
+    audioClip: {fileID: 8300000, guid: 8f0bd59db1b9d460589de0dc96b5b284, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 1

@@ -37,7 +37,6 @@ public class UIButtonHoverZoom : MonoBehaviour, IPointerEnterHandler, IPointerEx
         // Click Entering Button Sound
         soundManager.CheckPlaySound("ButtonEnter");
         innerImage.rectTransform.localScale = originalImageScale * zoomScale;
-        
     }
 
     public void OnPointerExit(PointerEventData eventData)
