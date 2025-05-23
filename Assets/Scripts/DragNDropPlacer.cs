@@ -1,10 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>
-///  Given a UI button press, place a desired game object into the city
+///  Given a UI button press (handled by UIButtonPlacementAction), place a desired game object into the city
 ///  
 ///  NOTE: For XR, edit the Input Action bindings for the actions for XR and regenerate class
 /// </summary>
@@ -128,12 +127,8 @@ public class DragNDropPlacer : MonoBehaviour
 
                 if (currentGameObjectPrefab != null)
                 {
-                    // NOTE: This was a problem with the way I setup the probuilder mesh, it now works perfectly (and doesn't use them - only in the city base)
-                    //---- IGNORE ----
-                    // Adding the normal so regardless of city tilt, it is always correct
+                    // NOTE: This was a problem with the way I setup the probuilder mesh, it now works perfectly (and doesn't use them - only in the city base) - switch to this if trying out SampleScene
                     //Vector3 position = hit.point + hit.normal * 1.25f; //1.25f checked directly in director
-                    // Essentially what is happening without the 1.25 is it spawning within the city (1/4 of the way inside)
-                    //---- IGNORE ----
 
                     // To make it so the rotation is randomized
                     int[] angles = { 0, 90, 180, 270};

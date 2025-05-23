@@ -7,7 +7,8 @@ public class SoundLibrary : ScriptableObject
 {
     public List<Sound> sounds;
 
-    public Sound GetSoundByName(string idName)
+    // Not needed
+    /*public Sound GetSoundByName(string idName)
     {
         foreach(var sound in sounds)
         {
@@ -17,5 +18,5 @@ public class SoundLibrary : ScriptableObject
             }
         }
         return null;
-    }
+    }*/
 }

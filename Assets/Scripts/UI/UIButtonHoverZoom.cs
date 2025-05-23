@@ -28,7 +28,7 @@ public class UIButtonHoverZoom : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
         else
         {
-            Debug.LogError("Inner image not set up in the director for one button.");
+            Debug.Log("Inner image not set up in the director for a button.");
         }
     }
 
@@ -36,12 +36,18 @@ public class UIButtonHoverZoom : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         // Click Entering Button Sound
         soundManager.CheckPlaySound("ButtonEnter");
-        innerImage.rectTransform.localScale = originalImageScale * zoomScale;
+        if (innerImage != null)
+        {
+            innerImage.rectTransform.localScale = originalImageScale * zoomScale;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        innerImage.rectTransform.localScale = originalImageScale;
+        if (innerImage != null)
+        {
+            innerImage.rectTransform.localScale = originalImageScale;
+        }
         // NOT USED - Leaving Button Sound
         //soundManager.CheckPlaySound("ButtonExit");
     }

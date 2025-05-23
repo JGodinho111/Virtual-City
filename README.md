@@ -32,10 +32,15 @@ Prototype 3D City Game
         - Skybox & Background
             - Changed the preset skybox with a new one and added transparent spheres in the far background to appear as halos (my take on the halo-like effect seen in the example)
         - Simple car driving around 4 set points on the road for aesthetics
+        - Simple actual game structure (place as many buildings in the city within 30 seconds, while events happen every 6 to see what's the highest you can get)
     - Future Iteration Possibilities:
-        - Simple actual game structure (e.g. place as many buildings in the city without destroying trees within a set ammount of time, while events happen frequently and need to be dealt with)
+        - Better game structure (e.g. place as many buildings in the city without destroying trees within a set ammount of time, while events happen frequently and need to be dealt with made modularly so there could be levels, more requirements, etc)
         - Color change of City while being held
         - Camera Shake on City Grab (not relevant for XR)
         - Working traffic system
         - Civilian NPCs (with set movement/random movement, based on NavMeshes for example)
      
+- Unity Scene Descriptions
+    - The Sample Scene (where I created and tested most of the features before changing the assets & has already changed UI).
+    - The Scene With New Assets which has all the requested features plus the car driving around four map points.
+    - The Gameplay Scene which has everything previously created with simple game logic. This is the version available on itch.io (LINK_NOT_YET_AVAILABLE).

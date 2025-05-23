@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 /// <summary>
 /// Class that detects player input (left or right mouse button)

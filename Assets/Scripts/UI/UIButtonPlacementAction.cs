@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// Attached to the image button to call if button is pressed, rather than directly through OnClick in the editor
 /// This is because it needs to be a drag and drop and not a click and the click again in the scene
+/// Then calls StartGameObjectPlacement of DragNDropPlacer
 /// </summary>
 public class UIButtonPlacementAction : MonoBehaviour, IPointerDownHandler
 {

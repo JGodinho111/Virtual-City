@@ -6,11 +6,12 @@ using UnityEngine;
 /// </summary>
 public class ElementalEffectsPlacer : MonoBehaviour
 {
-    private float timer;
-    private float timerTime = 2f;
+    private enum Event {None, Trash, Storm}
+    private Event currentEvent = Event.None;
 
-    private enum ongoingEvent {None, Trash, Storm}
-    private ongoingEvent currentEvent = ongoingEvent.None;
+    // ---------------------------------------------------
+    // Could have created scriptable objects with the prefabs, effects and ongoingEvent name,
+    // but left it like this since I had only planned one or two effects so no need
 
     [SerializeField]
     private GameObject trashPrefab;
@@ -24,51 +25,45 @@ public class ElementalEffectsPlacer : MonoBehaviour
     [SerializeField]
     private GameObject snowEffectPrefab;
 
+    // ---------------------------------------------------
+
+    private GameObject eventsPooler;
+
     private SoundManager soundManager;
 
     void Start()
     {
         soundManager = SoundManager.Instance;
 
-        timer = timerTime;
+        eventsPooler = new GameObject();
+        eventsPooler.name = "EventPooler";
     }
 
     // Now only updates event end
     // Used to Update timer and if an event is ongoing, it updates when it ends
     void Update()
     {
-        /*
-        if(timer > 0 && currentEvent == ongoingEvent.None)
+        if(currentEvent != Event.None)
         {
-            timer -= Time.deltaTime;
-        }
-        if(timer <= 0 && currentEvent == ongoingEvent.None)
-        {
-            timer = timerTime;
-            ActivateHazard();
-        }
-        */
-        if(currentEvent != ongoingEvent.None)
-        {
-            if(currentEvent == ongoingEvent.Trash)
+            if(currentEvent == Event.Trash)
             {
                 // Check if any trash still exists
                 var trash = GameObject.FindWithTag("Trash");
                 if(trash == null)
                 {
                     Debug.Log("All trash disposed of.");
-                    currentEvent = ongoingEvent.None;
+                    currentEvent = Event.None;
                 }
 
             }
-            if (currentEvent == ongoingEvent.Storm)
+            if (currentEvent == Event.Storm)
             {
                 // Check if any Flood still exists
                 var storm = GameObject.FindWithTag("Storm");
                 if (storm == null)
                 {
                     Debug.Log("Storm Cleaned Up.");
-                    currentEvent = ongoingEvent.None;
+                    currentEvent = Event.None;
                 }
             }
         }
@@ -80,12 +75,12 @@ public class ElementalEffectsPlacer : MonoBehaviour
         Debug.Log("Random Hazard Activated");
         if(Random.Range(0, 2) == 0)
         {
-            currentEvent = ongoingEvent.Trash;
+            currentEvent = Event.Trash;
             StartGarbadgeEvent();
         }
         else
         {
-            currentEvent = ongoingEvent.Storm;
+            currentEvent = Event.Storm;
             StartStormEvent();
         }
     }
@@ -111,8 +106,9 @@ public class ElementalEffectsPlacer : MonoBehaviour
 
                     // Above them Spawn Trash
                     GameObject instantiatedTrash = Instantiate(trashPrefab, cityPart.GetComponentInParent<Transform>().transform.position + new Vector3(3f, 5f, 3f), Quaternion.identity);
-                    // So that they interact with the city
-                    instantiatedTrash.transform.SetParent(cityPart.GetComponentInParent<Transform>().transform);
+
+                    if (eventsPooler != null)
+                        instantiatedTrash.transform.SetParent(eventsPooler.GetComponentInParent<Transform>().transform);
                 }
             }
         }
@@ -153,7 +149,10 @@ public class ElementalEffectsPlacer : MonoBehaviour
                 {
                     // Since the pivot is at 0, 0, 0 the random is between those coordinates and those coordinates plus the size (which is currently 30)
                     // - if pivot were in the center, I'd get half of the negative position coordinates and half of the positive ones
-                    Instantiate(snowPrefab, new Vector3(Random.Range(cityPosition.x, cityPosition.x + citySize.x), 5f, Random.Range(cityPosition.z, cityPosition.z + citySize.z)), Quaternion.identity);
+                    GameObject instantiatedSnow = Instantiate(snowPrefab, new Vector3(Random.Range(cityPosition.x, cityPosition.x + citySize.x), 5f, Random.Range(cityPosition.z, cityPosition.z + citySize.z)), Quaternion.identity);
+
+                    if (eventsPooler != null)
+                        instantiatedSnow.transform.SetParent(eventsPooler.GetComponentInParent<Transform>().transform);
                 }
             }
         }

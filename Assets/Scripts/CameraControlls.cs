@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// Class that handles player camera controls (WASD Movement in 3D space and Zoom In & Out with mouse wheel
+/// Class that handles player camera controls (WASD Movement in 3D space and Zoom In & Out with mouse wheel)
 /// Attached to main camera of a scene
+/// 
 /// Note: Input Actions created and handled only for keyboard/mouse controller scheme, not relevant for XR
 /// </summary>
 public class CameraControlls : MonoBehaviour

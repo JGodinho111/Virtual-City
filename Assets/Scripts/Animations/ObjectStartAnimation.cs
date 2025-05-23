@@ -5,6 +5,8 @@ using UnityEngine;
 /// Class that handles individual object animations on Start by instantiating a particle effect
 /// and doing an animation based on three parameters
 /// - These parameters are set up by the classes that extend this class overriding the SetAnimationParameters() method
+/// ---> In heinsight I could've made a scriptable object with all possible variations of
+///      rotatingSideways, rotatingVertically, comingDown instead of just setting up 3 fixed animations with one variable set to true
 /// </summary>
 public abstract class ObjectStartAnimation : MonoBehaviour
 {

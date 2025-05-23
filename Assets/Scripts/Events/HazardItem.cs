@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Interface that Handles hazard behaviour and destruction when too far away from city
+/// Class that is extended and Handles hazard behaviour and destruction when too far away from city
 /// Methods implemented in the classes that extend the class
 /// </summary>
 public abstract class HazardItem : MonoBehaviour

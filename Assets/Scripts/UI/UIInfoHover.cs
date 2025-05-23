@@ -9,14 +9,18 @@ public class UIInfoHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField]
     private GameObject infoPanel;
 
+    private SoundManager soundManager;
+
     void Start()
     {
+        soundManager = SoundManager.Instance;
         if (infoPanel != null)
             infoPanel.SetActive(false);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        soundManager.CheckPlaySound("ButtonEnter");
         if (infoPanel != null)
             infoPanel.SetActive(true);
     }

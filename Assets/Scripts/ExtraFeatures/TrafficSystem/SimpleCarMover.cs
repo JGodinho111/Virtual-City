@@ -1,6 +1,8 @@
 using UnityEngine;
 
 /// <summary>
+/// Just for fun - Extra Feature
+/// 
 /// Additional Feature Script which handles car movement across preset wayPoints
 /// </summary>
 public class SimpleCarMover : MonoBehaviour
