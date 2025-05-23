@@ -83,7 +83,7 @@ public abstract class ObjectStartAnimation : MonoBehaviour
             }
             if (comingDown)
             {
-                transform.position = Vector3.Lerp(transform.position, startPosition, elapsedTime / animationTimer);
+                transform.position = Vector3.Slerp(transform.position, startPosition, elapsedTime / animationTimer);
             }
             elapsedTime += Time.deltaTime;
             yield return null;

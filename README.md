@@ -31,7 +31,7 @@ Prototype 3D City Game
             - Simple sound effects were implemented for some game actions
         - Skybox & Background
             - Changed the preset skybox with a new one and added transparent spheres in the far background to appear as halos (my take on the halo-like effect seen in the example)
-        - TODO: Simple car driving around 4 set points on the road for aesthetics
+        - Simple car driving around 4 set points on the road for aesthetics
     - Future Iteration Possibilities:
         - Simple actual game structure (e.g. place as many buildings in the city without destroying trees within a set ammount of time, while events happen frequently and need to be dealt with)
         - Color change of City while being held
