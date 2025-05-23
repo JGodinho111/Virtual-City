@@ -58,7 +58,7 @@ Prototype 3D City Game
     - UIPanelPositionChange.cs changes the dimensions of the layout group panel where buttons are when entering and exiting the layout group panel
     - UIButtonHoverZoom.cs zooms the inner image of a button on hover
 
-    - DragNDropPlacer.cs handles deployable object placement including fading out the UI image, checking if placement is possible and instantiating gameobject if so
+    - DragNDropPlacer.cs handles deployable object placement including fading out the UI image, checking if placement is possible and instantiating gameobject if so (via input action, so with an XR binding there should not be an issue)
         - UIButtonPlacementAction.cs calls DragNDropPlacer.cs to StartGameObjectPlacement given a deployable object prefab and a deployable object image prefab
 
     - ImageFollowMouseCursor.cs is part of deployable image prefab and follows the player mouse position (via input action, so with an XR binding there should not be an issue)
@@ -66,7 +66,7 @@ Prototype 3D City Game
         - VerticalAnimation.cs, SidewaysAnimation.cs and ComingDownAnimation.cs extend ObjectStartAnimation.cs and are part of deployable object prefab and set the type of animation based on 3 parameters.
 
     - CityMover.cs handles city movement based on left or right mouse clicks and position (via input action, so with an XR binding there should not be an issue) via its rigidbody
-        - UIBlockDetector.cs is called by CityMover.cs to verify that the pointer is not on a UI item
+        - UIBlockDetector.cs is called by CityMover.cs to verify that the pointer is not on a UI item (via input action, so with an XR binding there should not be an issue)
 
     - ElementalEffectsPlacer.cs generates the random physics-based events
         - HazardItem.cs is the class that is extended to handle random event gameobjects
