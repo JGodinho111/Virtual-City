@@ -1317,6 +1317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundLibrary: {fileID: 11400000, guid: 612e8363c65c747fa914ca05102f261a, type: 2}
+  audioSourcePrefab: {fileID: 1743264399331314646, guid: f7d75ef8922c04b7b8d8d3eb0eeaddb9, type: 3}
 --- !u!4 &316233847 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9093973990668745289, guid: d06abc131ee5b4b3eac8278f8c6e3331, type: 3}
